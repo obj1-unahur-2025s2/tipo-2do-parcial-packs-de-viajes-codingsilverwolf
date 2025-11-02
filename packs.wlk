@@ -42,11 +42,19 @@ class Beneficio{
 
 
 
-/*
+
 class PackProvincial inherits PackNacional{
   const cantidadDeCiudades
+  var recargoPremium = 0.05
 
-  override 
+  override method esPremium() = super() and actividades.size() >= 4 and cantidadDeCiudades >= 5 and self.beneficiosVigentes().size() >= 3
+
+  override method costoTotal(){
+    if (self.esPremium()){
+      return super()*(1+ recargoPremium)
+    }
+    else{
+      return super()
+    }
+  }
 }
-
-*/
