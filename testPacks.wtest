@@ -9,18 +9,18 @@ describe "Packs" {
 
   const traslado2 = new Beneficio(tipo = "Traslados privados", costo = 5000, estaVigente = true)
 
-  const barilocheBase = new PackNacional(destino = "Bariloche", duracion = 7, precioBase = 10000, cordinador = pepe)
+  const barilocheBase = new PackNacional(destino = "Bariloche", duracion = 7, precioBase = 10000, coordinador = pepe)
 
-  const barilochePremium = new PackNacional(destino = "Bariloche", duracion = 15, precioBase = 35000, cordinador = pepe, beneficiosEspeciales = [traslado2, salaVIP])
+  const bariloche2 = new PackNacional(destino = "Bariloche", duracion = 15, precioBase = 35000, coordinador = pepe, beneficiosEspeciales = [traslado2, salaVIP])
 
-  const Brasil = new PackInternacional(escalas = 0, esDeInteres = true, destino = "Brasil", duracion = 15, precioBase = 50000, cordinador = pepe)
+  const Brasil = new PackInternacional(escalas = 0, esDeInteres = true, destino = "Brasil", duracion = 15, precioBase = 50000, coordinador = pepe)
 
   test "Un pack nacional sin beneficios vigentes devuelve el mismo precio base." {
     assert.equals(10000, barilocheBase.costoTotal())
   }
 
   test "Un pack nacional con 2 beneficios vigentes suma correctamente sus costos al precio base."{
-    assert.equals(50000, barilochePremium.costoTotal())
+    assert.equals(50000, bariloche2.costoTotal())
   }
 
   test "Un pack internacional sin beneficios vigentes calcula correctamente el total con el 20% de recargo."{
@@ -55,3 +55,37 @@ describe "Guías"{
   }
 
 }
+
+
+describe "Premium"{
+
+  const pepe = new Coordinador(viajes = 10, estaMotivado = true, aniosDeExperiencia = 1, rol = guia)
+
+  const pepito = new Coordinador(viajes = 21, estaMotivado = true, aniosDeExperiencia = 1, rol = guia)
+
+  const carlitos = new Coordinador(viajes = 100, estaMotivado = true, aniosDeExperiencia = 4, rol = asistenteLogistico)
+
+  const barilochePremium = new PackNacional(destino = "Bariloche", duracion = 15, precioBase = 35000, coordinador = pepito)
+
+  const brasilPremium = new PackNacional(destino = "Bariloche", duracion = 15, precioBase = 35000, coordinador = carlitos)
+
+  test "Pack nacional con pepito como coordinador y 15 días de duración es premium"{
+
+    assert.that(barilochePremium.esPremium())
+
+  }
+
+  test "Pack internacional  a Brasil con carlitos como coordinador y 15 días de duración es premium"{
+
+    assert.that(brasilPremium.esPremium())
+
+  }
+
+  test "Si en vez de carlitos ponemos a pepe en el pack de Brasil ya no es premiun"{
+    brasilPremium.coordinador(pepe)
+
+    assert.notThat(brasilPremium.esPremium())
+  }
+
+}
+
