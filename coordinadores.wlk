@@ -1,10 +1,15 @@
 
 class Coordinador{
-  const viajes
-  var property estaMotivado
+  // cantidadDeViajes mejor que viajes
+  const cantidadDeViajes
+  // el var property acá no corresponde porque el setter le queda muy grande a algo que sólo puede ser true o false. O ponemos const property o lo dejamos en var y definimos los setters aparte.
+  var estaMotivado
   var property aniosDeExperiencia
   var rol
   const rolesValidos = #{guia, asistenteLogistico, acompaniante}
+
+  // podría más adelante definir un setter particular
+  method estaMotivado() = estaMotivado
 
   method cambiarRol(unRol){
     if (not rolesValidos.contains(unRol)){
@@ -16,7 +21,7 @@ class Coordinador{
   }
 
   // El rol sabe responder la condición adicional sobre el coordinador
-  method esAltamenteCalificado() = viajes > 20 and rol.condicionAdicional(self)
+  method esAltamenteCalificado() = cantidadDeViajes > 20 and rol.condicionAdicional(self)
 }
 
 object guia{
