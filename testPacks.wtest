@@ -1,1 +1,29 @@
-// completar
+import packs.*
+describe "Packs" {
+
+  const pepe = new Coordinador(viajes = 10, estaMotivado = true, aniosDeExperiencia = 1, rol = guia)
+
+  const salaVIP = new Beneficio(tipo = "Acceso a salas VIP", costo = 10000, estaVigente = true)
+
+  const traslado1 = new Beneficio(tipo = "Traslados privados", costo = 50, estaVigente = false)
+
+  const traslado2 = new Beneficio(tipo = "Traslados privados", costo = 5000, estaVigente = true)
+
+  const barilocheBase = new PackNacional(destino = "Bariloche", duracion = 7, precioBase = 10000, cordinador = pepe)
+
+  const barilochePremium = new PackNacional(destino = "Bariloche", duracion = 15, precioBase = 35000, cordinador = pepe, beneficiosEspeciales = [traslado2, salaVIP])
+
+  const Brasil = new PackInternacional(escalas = 0, esDeInteres = true, destino = "Brasil", duracion = 15, precioBase = 50000, cordinador = pepe)
+
+  test "Un pack nacional sin beneficios vigentes devuelve el mismo precio base." {
+    assert.equals(10000, barilocheBase.costoTotal())
+  }
+
+  test "Un pack nacional con 2 beneficios vigentes suma correctamente sus costos al precio base."{
+    assert.equals(50000, barilochePremium.costoTotal())
+  }
+
+  test "Un pack internacional sin beneficios vigentes calcula correctamente el total con el 20% de recargo."{
+    assert.equals(60000, Brasil.costoTotal())
+  }
+}
