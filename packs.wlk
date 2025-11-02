@@ -27,8 +27,8 @@ class PackInternacional inherits Pack{
 
 class Coordinador{
   const viajes
-  var estaMotivado
-  var aniosDeExperiencia
+  var property estaMotivado
+  var property aniosDeExperiencia
   var rol
   const rolesValidos = #{guia, asistenteLogistico, acompaniante}
 
@@ -40,17 +40,27 @@ class Coordinador{
       rol = unRol
     }    
   }
+
+  // El rol sabe responder la condición adicional sobre el coordinador
+  method esAltamenteCalificado() = viajes > 20 and rol.condicionAdicional(self)
 }
 
 object guia{
 
+  method condicionAdicional(coordinador) = coordinador.estaMotivado()
+
 }
 
 object asistenteLogistico{
+
+  method condicionAdicional(coordinador) = coordinador.aniosDeExperiencia() >= 3
   
 }
 
 object acompaniante{
+
+  // Debemos pasarle true porque en esAltamenteCalificado() hay un and
+  method condicionAdicional(coordinador) = true
 
 }
 
