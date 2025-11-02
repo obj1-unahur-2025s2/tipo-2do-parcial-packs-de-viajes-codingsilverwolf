@@ -1,4 +1,5 @@
 import packs.*
+import coordinadores.*
 describe "Packs" {
 
   const pepe = new Coordinador(viajes = 10, estaMotivado = true, aniosDeExperiencia = 1, rol = guia)
