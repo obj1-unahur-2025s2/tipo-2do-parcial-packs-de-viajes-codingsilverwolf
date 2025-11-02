@@ -2,6 +2,7 @@ import coordinadores.*
 class Pack{
   const property duracion
   const property precioBase
+  // beneficios
   const property beneficiosEspeciales = []
   var property coordinador
 
