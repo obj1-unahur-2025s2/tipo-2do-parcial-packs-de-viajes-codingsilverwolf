@@ -90,3 +90,68 @@ describe "Premium"{
 
 }
 
+describe "Provinciales"{
+  const pepe = new Coordinador(viajes = 10, estaMotivado = true, aniosDeExperiencia = 1, rol = guia)
+
+  const pepito = new Coordinador(viajes = 21, estaMotivado = true, aniosDeExperiencia = 1, rol = guia)
+
+  const carlitos = new Coordinador(viajes = 100, estaMotivado = true, aniosDeExperiencia = 4, rol = asistenteLogistico)
+
+  const provincialSantaFe1 = new PackProvincial(destino = "Bariloche", duracion = 15, precioBase = 30000, coordinador = pepito, cantidadDeCiudades = 2, actividades = #{"rafting", "caminata", "monumento a la bandera"})
+
+  const provincialSantaFe2 = new PackProvincial(destino = "Bariloche", duracion = 15, precioBase = 40000, coordinador = pepito, cantidadDeCiudades = 5, actividades = #{"rafting", "caminata", "monumento a la bandera"}, beneficiosEspeciales = [traslado1, traslado2, traslado4])
+
+  const provincialSantaFe3 = new PackProvincial(destino = "Bariloche", duracion = 15, precioBase = 50000, coordinador = pepito, cantidadDeCiudades = 5, actividades = #{"rafting", "caminata", "monumento a la bandera", "tour gastronómico"}, beneficiosEspeciales = [traslado1, traslado2, traslado4])
+
+  const provincialSantaFe4 = new PackProvincial(destino = "Bariloche", duracion = 15, precioBase = 50000, coordinador = pepito, cantidadDeCiudades = 5, actividades = #{"rafting", "caminata", "monumento a la bandera", "tour gastronómico"}, beneficiosEspeciales = [traslado1, traslado2, traslado3, traslado4, recital])
+
+  const provincialSalta = new PackProvincial(destino = "Bariloche", duracion = 15, precioBase = 100000, coordinador = carlitos, cantidadDeCiudades = 5, actividades = #{"rafting", "caminata", "subida al cerro", "tren de las nubes"}, beneficiosEspeciales = [traslado1, traslado2, traslado3, seguro])
+
+  const traslado1 = new Beneficio(tipo = "Traslados privados", costo = 1000, estaVigente = true)
+
+  const traslado2 = new Beneficio(tipo = "Traslados privados", costo = 2000, estaVigente = true)
+
+  const traslado3 = new Beneficio(tipo = "Traslados privados", costo = 3000, estaVigente = true)
+
+  const traslado4 = new Beneficio(tipo = "Traslados privados", costo = 1000, estaVigente = false)
+
+  const recital = new Beneficio(tipo = "Acceso a salas VIP", costo = 4000, estaVigente = true)
+
+  const seguro = new Beneficio(tipo = "Seguros adicionales", costo = 4000, estaVigente = true)
+
+  test "Pack provinvial en Santa Fe con visita a 2 ciudades no es premium y su costo es igual a su costo base"{
+
+    assert.notThat(provincialSantaFe1.esPremium())
+    assert.equals(30000, provincialSantaFe1.costoTotal())
+
+  }
+
+  test "Pack provinvial en Santa Fe con visita a 5 ciudades con 3 actividades y 2 traslados privados no es premium y su costo es igual a su costo base más el de sus traslados"{
+
+    assert.notThat(provincialSantaFe2.esPremium())
+    assert.equals(43000, provincialSantaFe2.costoTotal())
+
+  }
+
+  test "Pack provinvial en Santa Fe con visita a 5 ciudades con 4 actividades y 2 traslados privados no es premium y su costo es igual a su costo base"{
+
+    assert.notThat(provincialSantaFe3.esPremium())
+    assert.equals(53000, provincialSantaFe3.costoTotal())
+
+  }
+
+  test "Pack provinvial en Santa Fe con visita a 5 ciudades con 4 actividades y 3 traslados privados no es premium y su costo es igual a su costo base más un 5%"{
+
+    assert.that(provincialSantaFe4.esPremium())
+    assert.equals(63000, provincialSantaFe4.costoTotal())
+  }
+
+  test "Pack provinvial en Salta con visita a 5 ciudades con 4 actividades y 3 traslados privados y seguro es premium y su costo es igual a su costo base más un 5%"{
+
+    assert.that(provincialSalta.esPremium())
+    assert.equals(115500, provincialSalta.costoTotal())
+  }
+
+
+}
+
