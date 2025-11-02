@@ -27,3 +27,31 @@ describe "Packs" {
     assert.equals(60000, Brasil.costoTotal())
   }
 }
+
+describe "Guías"{
+
+  const pepito = new Coordinador(viajes = 21, estaMotivado = true, aniosDeExperiencia = 1, rol = guia)
+
+  const carlos = new Coordinador(viajes = 100, estaMotivado = true, aniosDeExperiencia = 2, rol = asistenteLogistico)
+
+  const acompaniante1 = new Coordinador(viajes = 20, estaMotivado = true, aniosDeExperiencia = 1, rol = acompaniante)
+
+  const acompaniante2 = new Coordinador(viajes = 22, estaMotivado = true, aniosDeExperiencia = 1, rol = acompaniante)
+
+  const acompaniante3 = new Coordinador(viajes = 30, estaMotivado = true, aniosDeExperiencia = 1, rol = acompaniante)
+
+  test "Un guía motivado con 21 viajes realizados es considerado altamente calificado."{
+    assert.that(pepito.esAltamenteCalificado())
+  }
+
+  test "Un asistente logístico con menos de 3 años de experiencia no es calificado, aunque tenga muchos viajes."{
+    assert.notThat(carlos.esAltamenteCalificado())
+  }
+
+  test "Un acompañante con cualquier cantidad de viajes es siempre calificado si supera los 20."{
+    assert.notThat(acompaniante1.esAltamenteCalificado())
+    assert.that(acompaniante2.esAltamenteCalificado())
+    assert.that(acompaniante3.esAltamenteCalificado())
+  }
+
+}
